@@ -1,10 +1,10 @@
 import itchat
 import threading
 
-groupNames = ['group chat name 1', 'group chat name 2', 'group chat name 3', 'group chat name n']
-message = '// Python WeChat auto group chat test (time interval: 10s)'
+groupNames = ['group chat 1', 'group chat 2', 'group chat 3', 'group chat n']
+message = '// Python WeChat auto chat test (time interval: 10s)'
 
-# Multiple groups
+# group chat
 def groupChat(groupNames, message):
     groups = itchat.get_chatrooms(update=True)
 
@@ -21,6 +21,7 @@ def groupChat(groupNames, message):
 
 nickNames = ['user 1', 'user 2', 'user 3', 'user n']
 
+# individual chat
 def individualChat(userNames, message): 
     for nickName in nickNames:
         friends = itchat.search_friends(nickName=nickName)
@@ -30,7 +31,7 @@ def individualChat(userNames, message):
 def main():
     threading.Timer(10.0, main).start()
     # groupChat(groupNames, message)
-    individualChat(nickNames, message)
+    #individualChat(nickNames, message)
 
 itchat.auto_login(hotReload=True)
 main()
