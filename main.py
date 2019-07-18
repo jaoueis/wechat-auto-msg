@@ -1,25 +1,27 @@
 import itchat
 import threading
 
-groupName = 'The name of target group chat'
-message = 'Message you wanna send out'
+groupNames = ['group chat name 1', 'group chat name 2', 'group chat name 3', 'group chat name n']
+message = '// Python WeChat auto group chat test (time interval: 5s)'
 
-def groupChat(groupName, message):
+# Multiple groups
+def groupChat(groupNames, message):
     groups = itchat.get_chatrooms(update=True)
 
     global username
 
-    groups = itchat.search_chatrooms(name=groupName)
-    for group in groups: 
-        if group['NickName'] == groupName:
-            username = group['UserName']
-            itchat.send_msg(message, username)
-        else:
-            print('No group found')
+    for groupName in groupNames:
+        groups = itchat.search_chatrooms(name=groupName)
+        for group in groups:
+            if group['NickName'] == groupName:
+                username = group['UserName']
+                itchat.send_msg(message, username)
+            else:
+                print('No group found')
 
 def main():
     threading.Timer(5.0, main).start()
-    groupChat(groupName, message)
+    groupChat(groupNames, message)
 
 itchat.auto_login(hotReload=True)
 main()
